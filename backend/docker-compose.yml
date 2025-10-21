@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - PGPORT = 5432
+      - PGPORT=5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME} -p 5432"]
       interval: 1m30s
@@ -22,13 +22,13 @@ services:
 
   # django backend
   backend:
-    build: ./backend
+    build: .
     container_name: prayer_backend 
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./backend:/app
+      - .:/backend
     ports:
-      -"8000:8000" 
+      - "8000:8000"
     environment:
       - DEBUG=1
       - DATABASE_HOST=db
@@ -39,3 +39,6 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  postgres_data:
