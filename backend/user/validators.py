@@ -57,7 +57,7 @@ class CustomUserNameValidator():
             raise ValidationError("username must be between 4 and 20 characters long")
         
     def _validate_format(self, username):
-        pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\s).+$"
+        pattern = r"^(?=.*[a-z])(?=.*\d)(?!.*\s).+$"
         if not re.match(pattern, username):
             raise ValidationError("Username does not match the given pattern")
 
@@ -113,7 +113,6 @@ class CustomPasswordValidator():
             pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z\s])(?!.*\s).+$"
             if not re.match(pattern, password):
                 raise ValidationError("Password does not match the given pattern")
-
         
         def validate_password(self, password):
             self._validate_format(password)
